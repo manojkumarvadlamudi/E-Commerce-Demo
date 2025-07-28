@@ -1,0 +1,72 @@
+<!-- cart.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <header>
+    <h1>🛍️ Your Shopping Cart</h1>
+    <nav>
+      <a href="../index.html">← Back to Shop</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="cart-items" class="product-grid">
+      <!-- Cart items will be loaded here -->
+    </section>
+
+    <div id="cart-summary" style="text-align:center; margin-top: 2rem;">
+      <h3>Total: ₹<span id="total-price">0</span></h3>
+    </div>
+  </main>
+
+  <script src="../script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const cartData = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartContainer = document.getElementById("cart-items");
+      const totalSpan = document.getElementById("total-price");
+
+      fetch("../data/products.json")
+        .then((res) => res.json())
+        .then((products) => {
+          let total = 0;
+
+          cartData.forEach((cartItem) => {
+            const product = products.find((p) => p.id === cartItem.id);
+            if (product) {
+              const itemTotal = product.price * cartItem.qty;
+              total += itemTotal;
+
+              const div = document.createElement("div");
+              div.className = "product-card";
+              div.innerHTML = `
+                <img src="${product.image}" alt="${product.name}" />
+                <h3>${product.name}</h3>
+                <p>Price: ₹${product.price}</p>
+                <p>Quantity: ${cartItem.qty}</p>
+                <p>Subtotal: ₹${itemTotal}</p>
+                <button onclick="removeItem(${product.id})">Remove</button>
+              `;
+              cartContainer.appendChild(div);
+            }
+          });
+
+          totalSpan.textContent = total;
+        });
+    });
+
+    function removeItem(productId) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart = cart.filter((item) => item.id !== productId);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      location.reload(); // reload page to reflect changes
+    }
+  </script>
+</body>
+</html>
