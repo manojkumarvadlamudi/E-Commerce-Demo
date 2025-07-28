@@ -1,9 +1,5 @@
 demo-e-cart/
 │
-├── index.html             # Homepage (product list, cart button)
-├── cart.html              # Cart summary page
-├── style.css              # Custom styling
-├── script.js              # JS for cart logic
 ├── assets/                # Images, icons
 				├── airpods
 				├── camera
@@ -15,7 +11,13 @@ demo-e-cart/
 				├── watch
 				├── 
 				├── 
-├── data/products.json     # (Optional) Store product info
+├── cart/		   # Cart summary page	
+				├── cart.html  
+├── data/		   # (Optional) Store product info
+				├── products.json
+├── index.html             # Homepage (product list, cart button)            
+├── style.css              # Custom styling
+├── script.js              # JS for cart logic
 ├── README.md              # Project overview and setup
 ├── manual-testing/        # Test cases, logs, bug reports (as .md or .pdf)
 └── .git/                  # Git version control
