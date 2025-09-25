@@ -1,42 +1,132 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Demo E-Cart</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo E-Cart</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <h1>🛒 My Demo E-Cart</h1>
-    <nav>
-      <a href="cart/cart.html">
-        View Cart 🛍️ (<span id="cart-count">0</span>)
-      </a>
-    </nav>
-  </header>
+  <!-- Header -->
+  <header>
+    <h1>🛒 My Demo E-Cart</h1>
+    <nav>
+      <a href="cart.html">
+        View Cart 🛍️ (<span id="cart-count">0</span>)
+      </a>
+    </nav>
+  </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <h2>Shop Premium Tech Gadgets</h2>
-    <p>Discover luxury electronics at unbeatable prices.</p>
-  </section>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h2>Shop Premium Tech Gadgets</h2>
+    <p>Discover luxury electronics at unbeatable prices.</p>
+  </section>
 
-  <!-- Product List -->
-  <main>
-    <section id="product-list" class="product-grid">
-      <!-- Products will be injected here via JS -->
-    </section>
-  </main>
+  <!-- Product List -->
+  <main>
+    <section id="product-list" class="product-grid">
+      <!-- Products will be injected here via JS -->
+    </section>
+  </main>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Manoj Kumar. All rights reserved.</p>
-  </footer>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Your Name. All rights reserved.</p>
+  </footer>
 
-  <!-- JS -->
-  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('/api/products')
+        .then(res => res.json())
+        .then(products => {
+          displayProducts(products);
+          updateCartCount();
+        })
+        .catch(err => console.error('Failed to load products:', err));
+    });
+
+    function displayProducts(products) {
+      const productList = document.getElementById('product-list');
+      productList.innerHTML = '';
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      products.forEach(product => {
+        const inCart = cart.some(item => item.id === product.id);
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <img src="${product.images[0]}" alt="${product.name}" />
+          <h3>${product.name}</h3>
+          <p>₹${product.price}</p>
+          ${
+            inCart 
+              ? `<button onclick="removeFromCart(${product.id})">Remove from Cart</button>`
+              : `<button onclick="addToCart(${product.id}, '${product.name}', ${product.price}, '${product.images[0]}')">Add to Cart</button>`
+          }
+        `;
+        productList.appendChild(card);
+      });
+    }
+
+    function addToCart(id, name, price, image) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingItem = cart.find(item => item.id === id);
+
+      if(existingItem) {
+        existingItem.qty += 1;
+      } else {
+        cart.push({ id, name, price, image, qty: 1 });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      fetch('/api/products')
+        .then(res => res.json())
+        .then(products => displayProducts(products));
+      showToast(`${name} added to cart!`);
+    }
+
+    function removeFromCart(id) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart = cart.filter(item => item.id !== id);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      fetch('/api/products')
+        .then(res => res.json())
+        .then(products => displayProducts(products));
+      showToast('Item removed from cart!');
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const count = cart.reduce((acc, item) => acc + item.qty, 0);
+      const badge = document.getElementById('cart-count');
+      if(badge) badge.textContent = count;
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.textContent = message;
+      toast.style.position = 'fixed';
+      toast.style.bottom = '20px';
+      toast.style.right = '20px';
+      toast.style.background = '#4b0082';
+      toast.style.color = 'white';
+      toast.style.padding = '10px 20px';
+      toast.style.borderRadius = '8px';
+      toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+      toast.style.zIndex = '1000';
+      toast.style.opacity = '0';
+      toast.style.transition = 'opacity 0.5s ease';
+
+      document.body.appendChild(toast);
+      setTimeout(() => toast.style.opacity = '1', 100);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => document.body.removeChild(toast), 500);
+      }, 2000);
+    }
+  </script>
 </body>
 </html>
