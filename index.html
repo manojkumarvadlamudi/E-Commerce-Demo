@@ -8,23 +8,35 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Header -->
   <header>
     <h1>🛒 My Demo E-Cart</h1>
     <nav>
-      <a href="cart/cart.html">View Cart 🛍️</a>
+      <a href="cart/cart.html">
+        View Cart 🛍️ (<span id="cart-count">0</span>)
+      </a>
     </nav>
   </header>
 
+  <!-- Hero Section -->
+  <section class="hero">
+    <h2>Shop Premium Tech Gadgets</h2>
+    <p>Discover luxury electronics at unbeatable prices.</p>
+  </section>
+
+  <!-- Product List -->
   <main>
     <section id="product-list" class="product-grid">
       <!-- Products will be injected here via JS -->
     </section>
   </main>
 
+  <!-- Footer -->
   <footer>
     <p>&copy; 2025 Manoj Kumar. All rights reserved.</p>
   </footer>
 
+  <!-- JS -->
   <script src="script.js"></script>
 </body>
 </html>
