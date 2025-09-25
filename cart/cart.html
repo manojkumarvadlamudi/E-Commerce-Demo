@@ -1,72 +1,96 @@
-<!-- cart.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Cart</title>
-  <link rel="stylesheet" href="../style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopping Cart - Demo E-Cart</title>
+  <link rel="stylesheet" href="../style.css" />
 </head>
 <body>
-  <header>
-    <h1>🛍️ Your Shopping Cart</h1>
-    <nav>
-      <a href="../index.html">← Back to Shop</a>
-    </nav>
-  </header>
+  <header>
+    <h1>Your Cart</h1>
+    <nav>
+      <a href="../index.html">Back to Shop</a>
+    </nav>
+  </header>
 
-  <main>
-    <section id="cart-items" class="product-grid">
-      <!-- Cart items will be loaded here -->
-    </section>
+  <main>
+    <section id="cart-container">
+      <!-- Cart items will be injected here -->
+    </section>
+    <section id="cart-total">
+      <strong>Total: ₹<span id="total-amount">0</span></strong>
+    </section>
+  </main>
 
-    <div id="cart-summary" style="text-align:center; margin-top: 2rem;">
-      <h3>Total: ₹<span id="total-price">0</span></h3>
-    </div>
-  </main>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      displayCartItems();
+    });
 
-  <script src="../script.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const cartData = JSON.parse(localStorage.getItem("cart")) || [];
-      const cartContainer = document.getElementById("cart-items");
-      const totalSpan = document.getElementById("total-price");
+    function displayCartItems() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const container = document.getElementById('cart-container');
+      container.innerHTML = '';
 
-      fetch("../data/products.json")
-        .then((res) => res.json())
-        .then((products) => {
-          let total = 0;
+      let totalAmount = 0;
 
-          cartData.forEach((cartItem) => {
-            const product = products.find((p) => p.id === cartItem.id);
-            if (product) {
-              const itemTotal = product.price * cartItem.qty;
-              total += itemTotal;
+      cart.forEach(item => {
+        totalAmount += item.price * item.qty;
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'cart-item';
+        itemDiv.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" />
+          <h3>${item.name}</h3>
+          <p>Price: ₹${item.price}</p>
+          <label>Quantity: <input type="number" min="1" value="${item.qty}" data-id="${item.id}" /></label>
+          <button data-id="${item.id}" class="remove-btn">Remove</button>
+        `;
+        container.appendChild(itemDiv);
+      });
 
-              const div = document.createElement("div");
-              div.className = "product-card";
-              div.innerHTML = `
-                <img src="${product.image}" alt="${product.name}" />
-                <h3>${product.name}</h3>
-                <p>Price: ₹${product.price}</p>
-                <p>Quantity: ${cartItem.qty}</p>
-                <p>Subtotal: ₹${itemTotal}</p>
-                <button onclick="removeItem(${product.id})">Remove</button>
-              `;
-              cartContainer.appendChild(div);
-            }
-          });
+      document.getElementById('total-amount').textContent = totalAmount;
 
-          totalSpan.textContent = total;
-        });
-    });
+      setupEventListeners();
+    }
 
-    function removeItem(productId) {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart = cart.filter((item) => item.id !== productId);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      location.reload(); // reload page to reflect changes
-    }
-  </script>
+    function setupEventListeners() {
+      const qtyInputs = document.querySelectorAll('input[type="number"]');
+      const removeBtns = document.querySelectorAll('.remove-btn');
+
+      qtyInputs.forEach(input => {
+        input.addEventListener('change', e => {
+          const id = parseInt(e.target.dataset.id);
+          const newQty = parseInt(e.target.value);
+          updateQuantity(id, newQty);
+        });
+      });
+
+      removeBtns.forEach(button => {
+        button.addEventListener('click', e => {
+          const id = parseInt(e.target.dataset.id);
+          removeFromCart(id);
+        });
+      });
+    }
+
+    function updateQuantity(id, qty) {
+      if(qty < 1) return;
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const item = cart.find(i => i.id === id);
+      if(item) {
+        item.qty = qty;
+        localStorage.setItem('cart', JSON.stringify(cart));
+        displayCartItems();
+      }
+    }
+
+    function removeFromCart(id) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart = cart.filter(item => item.id !== id);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      displayCartItems();
+    }
+  </script>
 </body>
 </html>
