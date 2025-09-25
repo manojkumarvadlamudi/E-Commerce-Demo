@@ -1,59 +1,92 @@
+/* Import a modern font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   margin: 0;
   padding: 0;
+  /* Premium gradient background */
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: #f5f5f5;
 }
 
+/* Header Styling */
 header {
-  background: #4b0082;
+  background: rgba(0, 0, 0, 0.6);
   color: white;
-  padding: 1rem;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
 header h1 {
   margin: 0;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 nav a {
-  color: white;
+  color: #ffd700; /* Gold accent */
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 600;
+  margin-left: 1rem;
+  transition: color 0.3s;
 }
 
+nav a:hover {
+  color: #ffffff;
+}
+
+/* Product Grid */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
-  padding: 2rem;
+  gap: 2rem;
+  padding: 3rem;
 }
 
+/* Product Card */
 .product-card {
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
   padding: 1rem;
   text-align: center;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.6);
 }
 
 .product-card img {
   max-width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 12px;
+  margin-bottom: 0.8rem;
 }
 
+/* Buttons */
 button {
-  background: #4b0082;
+  background: linear-gradient(135deg, #6a0dad, #4b0082);
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  margin-top: 0.5rem;
-  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  margin-top: 0.8rem;
+  border-radius: 10px;
   cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: background 0.3s, transform 0.2s;
 }
 
 button:hover {
-  background: #6a0dad;
+  background: linear-gradient(135deg, #8e2de2, #4a00e0);
+  transform: scale(1.05);
 }
