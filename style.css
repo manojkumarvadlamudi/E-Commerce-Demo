@@ -5,21 +5,21 @@ body {
   font-family: 'Montserrat', sans-serif;
   margin: 0;
   padding: 0;
-  /* Premium gradient background */
-  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-  color: #f5f5f5;
+  /* Soft blue-green gradient background */
+  background: linear-gradient(135deg, #2c3e50, #3498db, #1abc9c);
+  color: #ecf0f1;
 }
 
 /* Header Styling */
 header {
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  color: #ecf0f1;
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 header h1 {
@@ -29,7 +29,7 @@ header h1 {
 }
 
 nav a {
-  color: #ffd700; /* Gold accent */
+  color: #2ecc71; /* fresh green accent */
   text-decoration: none;
   font-weight: 600;
   margin-left: 1rem;
@@ -37,7 +37,7 @@ nav a {
 }
 
 nav a:hover {
-  color: #ffffff;
+  color: #27ae60;
 }
 
 /* Product Grid */
@@ -50,19 +50,20 @@ nav a:hover {
 
 /* Product Card */
 .product-card {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 15px;
   padding: 1rem;
   text-align: center;
-  backdrop-filter: blur(6px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #ecf0f1;
 }
 
 .product-card:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.6);
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
 }
 
 .product-card img {
@@ -74,7 +75,7 @@ nav a:hover {
 
 /* Buttons */
 button {
-  background: linear-gradient(135deg, #6a0dad, #4b0082);
+  background: linear-gradient(135deg, #16a085, #1abc9c);
   color: white;
   border: none;
   padding: 0.6rem 1.2rem;
@@ -87,6 +88,6 @@ button {
 }
 
 button:hover {
-  background: linear-gradient(135deg, #8e2de2, #4a00e0);
+  background: linear-gradient(135deg, #1abc9c, #16a085);
   transform: scale(1.05);
 }
