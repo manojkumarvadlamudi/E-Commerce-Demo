@@ -3,60 +3,61 @@
     "id": 1,
     "name": "Wireless Headphones",
     "price": 1499,
-    "image": "D:/E-Commerce-Demo/assets/headphones.jpg"
+    "image": "E-Commerce-Demo/assets/headphones.jpg"
   },
   {
     "id": 2,
     "name": "Fitness Tracker",
     "price": 999,
-    "image": "D:/E-Commerce-Demo/assets/tracker.jpg"
+    "image": "E-Commerce-Demo/assets/tracker.jpg"
   },
   {
     "id": 3,
     "name": "Portable Speaker",
     "price": 1199,
-    "image": "D:/E-Commerce-Demo/assets/speaker.jpg"
+    "image": "E-Commerce-Demo/assets/speaker.jpg"
   },
   {
     "id": 4,
     "name": "Wireless Earbuds",
     "price": 2499,
-    "image": "D:/E-Commerce-Demo/assets/airpods.jpg"
+    "image": "E-Commerce-Demo/assets/airpods.jpg"
   },
   {
     "id": 5,
     "name": "Smartphone",
-    "price": 7999,
-    "image": "D:/E-Commerce-Demo/assets/phone.jpg"
+    "price": 17999,
+    "image": "E-Commerce-Demo/assets/phone.jpg"
   },
   {
     "id": 6,
     "name": "Laptop",
-    "price": 29999,
-    "image": "D:/E-Commerce-Demo/assets/laptop.jpg"
+    "price": 59999,
+    "image": "E-Commerce-Demo/assets/laptop.jpg"
   },
   {
     "id": 7,
     "name": "Digital Camera",
-    "price": 15999,
-    "image": "D:/E-Commerce-Demo/assets/camera.jpg"
+    "price": 35999,
+    "image": "E-Commerce-Demo/assets/camera.jpg"
   },
   {
     "id": 8,
     "name": "Studio Microphone",
     "price": 1999,
-    "image": "D:/E-Commerce-Demo/assets/mic.jpg"
+    "image": "E-Commerce-Demo/assets/mic.jpg"
   },
   {
     "id": 9,
     "name": "Game Controller",
     "price": 2499,
-    "image": "D:/E-Commerce-Demo/assets/controller.jpg"
+    "image": "E-Commerce-Demo/assets/controller.jpg"
   },
   {
     "id": 10,
     "name": "Smart Watch",
     "price": 3999,
-    "image": "D:/E-Commerce-Demo/assets/watch.jpg"
+    "image": "E-Commerce-Demo/assets/watch.jpg"
   }
 ]
+
